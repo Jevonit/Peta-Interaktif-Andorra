@@ -19,7 +19,6 @@ const baseMaps = {
 };
 
 // --- FUNGSI UNTUK POP-UP ---
-// Fungsi ini akan kita gunakan untuk semua layer agar tidak menulis kode berulang
 function onEachFeature(feature, layer) {
     if (feature.properties) {
         // Mencari properti yang kemungkinan berisi nama (case-insensitive)
@@ -71,21 +70,17 @@ Promise.all(geojsonFiles.map(file => fetch(file.path).then(response => {
         let layer;
 
         if (layerInfo.type === 'point') {
-            // Gunakan MarkerClusterGroup untuk layer titik
-            const markers = L.markerClusterGroup();
-            const geojsonLayer = L.geoJson(data, {
-                onEachFeature: onEachFeature, // Cluster tidak perlu hover, hanya popup
+            layer = L.geoJson(data, {
+                onEachFeature: onEachFeature,
                 pointToLayer: function (feature, latlng) {
-                    return L.marker(latlng); // Marker standar lebih baik untuk cluster
+                    return L.marker(latlng);
                 }
             });
-            markers.addLayer(geojsonLayer);
-            layer = markers;
         } else {
             const geojsonLayer = L.geoJson(data, {
                 style: layerInfo.style,
                 onEachFeature: function(feature, layer) {
-                    onEachFeature(feature, layer); // Panggil fungsi popup generik
+                    onEachFeature(feature, layer);
 
                     // Efek highlight saat hover
                     layer.on({
@@ -167,7 +162,7 @@ function createVisualLegend() {
                 let style = {};
                 if (layerInfo.type === 'point') {
                     symbol.classList.add('point');
-                    style.backgroundColor = '#FF0000'; // Warna dari pointToLayer
+                    style.backgroundColor = '#009dff'; // Warna dari pointToLayer
                     style.borderColor = '#000';
                 } else if (layerInfo.style.fillColor) { // Polygon
                     symbol.classList.add('polygon');
@@ -187,7 +182,7 @@ function createVisualLegend() {
 }
 
 
-// --- FUNGSI BARU UNTUK MODAL PENCARIAN ---
+// --- FUNGSI UNTUK MODAL PENCARIAN ---
 function initializeSearchModal(layers) {
     const modal = document.getElementById('search-modal');
     const btn = document.getElementById('search-btn');
