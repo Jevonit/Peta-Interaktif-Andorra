@@ -1,0 +1,257 @@
+/* Menghilangkan margin default dari browser */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header dan Footer */
+header {
+    background-color: #1C3F94; /* Andorra Blue */
+    color: #FFD100; /* Andorra Yellow */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1001; /* Di atas peta tapi di bawah modal */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.6em;
+    font-weight: 600;
+}
+
+footer {
+    background-color: #1C3F94; /* Andorra Blue */
+    color: #FFD100; /* Andorra Yellow */
+    padding: 8px 20px;
+    text-align: center;
+    font-size: 0.9em;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    z-index: 1001;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Membuat div peta mengisi sisa ruang */
+#map {
+    flex-grow: 1; /* Mengambil semua ruang yang tersedia */
+    width: 100%;
+}
+
+/* --- STYLE UNTUK ELEMEN TAMBAHAN --- */
+
+/* Kotak Judul di Kiri Atas */
+#title-overlay {
+    position: static; /* Menyesuaikan posisi karena ada di dalam kontainer baru */
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+#title-overlay h1 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+#title-overlay p {
+    margin: 5px 0 0;
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Tombol Pencarian */
+#search-btn {
+    padding: 8px 16px;
+    font-size: 0.95em;
+    font-weight: bold;
+    background-color: #FFD100; /* Andorra Yellow */
+    color: #1C3F94; /* Andorra Blue */
+    border: 1px solid #D81E05; /* Andorra Red */
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#search-btn:hover {
+    background-color: #fff;
+    transform: translateY(-1px);
+}
+
+/* --- Gaya untuk Modal Pencarian --- */
+.modal-hidden {
+    display: none;
+}
+
+#search-modal {
+    position: fixed;
+    z-index: 2000; /* Tampil di atas segalanya */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5); /* Latar belakang lebih gelap */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* Lebih ke atas */
+    padding: 25px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: scale(0.9);}
+    to {opacity: 1; transform: scale(1);}
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group select:disabled,
+.form-group input:disabled {
+    background-color: #e9ecef;
+}
+
+#find-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+#find-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#find-btn:hover:not(:disabled) {
+    background-color: #218838;
+}
+
+/* Kustomisasi Popup */
+.leaflet-popup-content-wrapper {
+    border-radius: 5px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+}
+
+.leaflet-popup-content {
+    font-size: 1.1em;
+}
+
+.leaflet-popup-content h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+/* Kustomisasi Kontrol Layer (sekarang menjadi Legenda) */
+.leaflet-control-layers {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    padding: 10px;
+    line-height: 1.5;
+}
+
+.leaflet-control-layers-base label, 
+.leaflet-control-layers-overlays label {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.legend-symbol {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border: 1px solid #777;
+}
+
+.legend-symbol.point {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.legend-symbol.line {
+    height: 5px;
+    border-width: 3px 0 0 0;
+}
+
+.legend-symbol.polygon {
+    border-width: 2px;
+}
+
+/* Kustomisasi Minimap */
+.leaflet-control-minimap {
+    border: 3px solid #D81E05; /* Andorra Red */
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+
+.leaflet-control-minimap .leaflet-control-minimap-toggle-display {
+    background-color: #D81E05; /* Andorra Red */
+}
